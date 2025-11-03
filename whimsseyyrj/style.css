@@ -1,0 +1,645 @@
+/* ===================================================
+   Portfolio by Rijuta
+   About Page cleanup + Floating portrait integration
+   Backgrounds + Dark theme preserved
+   Last updated: January 2025
+=================================================== */
+
+
+/* ================================================
+   GLOBAL RESET + TYPOGRAPHY + CORE LAYOUT
+================================================ */
+:root {
+  --bg-color: #121212;
+  --text-color: #e0e0e0;
+  --accent-color: #333;
+  --link-hover: #cfcfcf;
+}
+
+[data-theme="light"] {
+  --bg-color: #ffffff;
+  --text-color: #111111;
+  --accent-color: #dddddd;
+  --link-hover: #333;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-padding-top: 120px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+h1, h2, h3, .about-name, .about-subtitle,
+.blog-card h3, .post-header h1 {
+  font-family: "Merriweather", Georgia, serif;
+}
+
+a {
+  color: var(--text-color);
+  text-decoration: none;
+  transition: color .2s ease;
+}
+
+a:hover {
+  color: var(--link-hover);
+}
+
+main {
+  flex: 1;
+  padding: 20px;
+  padding-top: 120px; /* Clears fixed header */
+}
+
+section {
+  margin-bottom: 36px; /* Balanced spacing */
+}
+/* ================================================
+   HEADER + NAVIGATION
+================================================ */
+header {
+  background: var(--accent-color);
+  color: var(--text-color);
+  padding: 1rem;
+  text-align: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.35);
+}
+
+header nav a {
+  margin: 0 10px;
+  font-weight: 500;
+}
+
+header nav a:hover {
+  text-decoration: underline;
+}
+
+.logo-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.logo {
+  height: 60px;
+  width: auto;
+}
+
+
+/* ================================================
+   BUTTONS (Global button styling)
+================================================ */
+.btn {
+  text-decoration: none;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: transform .15s ease, box-shadow .15s ease, background .15s ease, color .15s ease;
+  display: inline-block;
+}
+
+.btn-solid {
+  background: var(--text-color);
+  color: var(--bg-color);
+  border: 1px solid var(--text-color);
+}
+
+.btn-solid:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 22px rgba(0,0,0,.35);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-color);
+  border: 1px solid #555;
+}
+
+.btn-ghost:hover {
+  background: #2b2b2b;
+  border-color: #666;
+  transform: translateY(-1px);
+}
+
+
+/* ================================================
+   FADE-IN REVEAL ANIMATION (shared across site)
+================================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+.revealed {
+  opacity: 1;
+  transform: none;
+  transition: opacity .6s ease, transform .6s ease;
+}
+/* ================================================
+   ABOUT PAGE — Floating Portrait Layout + Cleanup
+================================================ */
+.about-hero {
+  max-width: 960px;
+  margin: 40px auto 24px auto; /* Added breathing room under header */
+  text-align: center;
+  padding: 10px 16px 0 16px;
+}
+
+.about-name {
+  font-weight: 900;
+  font-size: 2.2rem;
+  letter-spacing: 0.3px;
+  margin-bottom: 6px;
+}
+
+.about-subtitle {
+  font-weight: 400;
+  opacity: 0.9;
+}
+
+.about-body {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.about-content {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  text-align: left;
+}
+
+.about-portrait {
+  float: left;
+  width: 220px; /* Portrait size (S1) */
+  margin: 0 20px 12px 0;
+  border-radius: 12px; /* Soft portrait shape (FP2) */
+  border: 2px solid rgba(255,255,255,0.1);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+  object-fit: cover;
+}
+
+.about-copy {
+  text-align: justify;
+  margin-bottom: 20px;
+  line-height: 1.6; /* reduce from default ~1.8 */
+}
+
+.about-copy p {
+  margin: 0 0 20px 0; /* reduce gap between paragraphs */
+}
+
+
+.about-copy p {
+  margin-top: 0;
+  margin-bottom: 16px; /* adjust this number: try 8–12px */
+}
+
+.about-actions {
+  margin-top: 20px;
+  clear: both; /* Prevents button group from wrapping oddly */
+}
+
+/* Responsive for mobile */
+@media (max-width: 768px) {
+  .about-portrait {
+    float: none;
+    display: block;
+    margin: 0 auto 16px auto;
+    width: 60%; /* Mobile portrait size (M1) */
+    max-width: 260px;
+  }
+  .about-copy {
+    text-align: left;
+  }
+  .about-actions {
+    text-align: center;
+  }
+}
+/* ================================================
+   GALLERY — Masonry Layout + Filters
+================================================ */
+.gallery {
+  column-count: 3;
+  column-gap: 12px;
+  padding: 10px 0;
+}
+
+.gallery-item {
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 12px;
+  border-radius: 6px;
+  border: 1px solid #444;
+  background: var(--accent-color);
+  overflow: hidden;
+  break-inside: avoid;
+}
+
+.gallery img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  border-radius: 6px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.gallery img:hover {
+  opacity: 0.95;
+  transform: scale(1.01);
+}
+
+/* Gallery filters */
+.filter-buttons {
+  text-align: left;
+  margin-bottom: 10px;
+  margin-top: -10px;
+  padding-left: 5px;
+}
+
+.filter-buttons button {
+  background: var(--accent-color);
+  color: var(--text-color);
+  margin: 0 5px;
+  padding: 8px 12px;
+  border: 1px solid #555;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background .15s ease, color .15s ease, transform .15s ease;
+}
+
+.filter-buttons button:hover {
+  background: var(--text-color);
+  color: var(--bg-color);
+  transform: translateY(-1px);
+}
+
+/* Gallery responsive */
+@media (max-width: 1000px) {
+  .gallery {
+    column-count: 2;
+  }
+}
+@media (max-width: 600px) {
+  .gallery {
+    column-count: 1;
+  }
+}
+/* ================================================
+   BLOG PAGE — Masonry Cards
+================================================ */
+#blog {
+  margin-top: 40px; /* spacing under header */
+}
+
+.blog-grid {
+  column-count: 3;
+  column-gap: 16px;
+  padding-top: 4px;
+}
+
+.blog-card {
+  display: inline-block;
+  width: 100%;
+  margin: 0 0 16px 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
+  border: 1px solid #3b3b3b;
+  border-radius: 16px;
+  padding: 16px 16px 14px;
+  break-inside: avoid;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.35);
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+
+.blog-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px rgba(0,0,0,0.45);
+  border-color: #515151;
+}
+
+.blog-meta {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: .82rem;
+  opacity: .85;
+  margin-bottom: 8px;
+}
+
+.blog-meta .badge {
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid #505050;
+  background: #252525;
+  text-transform: capitalize;
+}
+
+.blog-card h3 {
+  margin: 6px 0 8px 0;
+  font-size: 1.25rem;
+  line-height: 1.3;
+  letter-spacing: .2px;
+}
+
+.blog-card p.excerpt {
+  margin: 0 0 8px 0;
+  font-size: .98rem;
+  line-height: 1.6;
+  opacity: .95;
+}
+
+.blog-card a.read-more {
+  border-bottom: 1px dashed #666;
+  padding-bottom: 2px;
+}
+
+.blog-card a.read-more:hover {
+  border-bottom-style: solid;
+}
+
+/* Blog responsive */
+@media (max-width: 1100px) {
+  .blog-grid { column-count: 2; }
+}
+@media (max-width: 680px) {
+  .blog-grid { column-count: 1; }
+}
+/* ================================================
+   CONTACT PAGE
+================================================ */
+main.contact-page {
+  padding-top: 180px; /* clears header spacing */
+}
+
+.contact-page {
+  display: flex;
+  justify-content: center;
+  padding-left: 16px;
+  padding-right: 16px;
+  position: relative;
+  z-index: 1;
+}
+
+.contact-box {
+  max-width: 560px;
+  width: 100%;
+  background: var(--accent-color);
+  padding: 24px;
+  border-radius: 12px;
+  border: 1px solid #444;
+  text-align: center;
+  box-shadow: 0 10px 24px rgba(0,0,0,.35);
+}
+
+.contact-box form {
+  max-width: 100%;
+  margin-top: 16px;
+}
+
+.contact-box input,
+.contact-box textarea {
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 12px;
+  border: 1px solid #555;
+  background: #2a2a2a;
+  color: var(--text-color);
+  border-radius: 10px;
+}
+
+.contact-box button {
+  width: 100%;
+  padding: 12px;
+  background: var(--text-color);
+  color: var(--bg-color);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.contact-box button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 22px rgba(0,0,0,.35);
+}
+/* ================================================
+   FOOTER + SOCIAL ICONS
+================================================ */
+/* Ensure footer appears above background overlays */
+footer {
+  position: relative;
+  z-index: 2;
+  padding: 15px 8px;
+  background: var(--accent-color);
+  color: var(--text-color);
+  text-align: center;
+  min-height: 50px; /* keeps height even with 1 line of text */
+}
+
+footer p {
+  margin: 0;
+}
+
+main.has-bg::before {
+  bottom: 0;  /* stops overlay before footer */
+}
+
+
+.footer-social {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 6px;
+}
+
+.footer-social .icon {
+  width: 22px;
+  height: 22px;
+  display: inline-block;
+  border: 2px solid #eee;
+  mask-size: cover;
+  -webkit-mask-size: cover;
+  background: #eee;
+  transition: transform .2s ease, background .2s ease;
+}
+
+.footer-social .icon:hover {
+  background: #fff;
+  transform: scale(1.15);
+}
+
+.footer-connect {
+  margin-bottom: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+.icon.instagram {
+  mask-image: url('https://cdn.jsdelivr.net/npm/simple-icons/icons/instagram.svg');
+  -webkit-mask-image: url('https://cdn.jsdelivr.net/npm/simple-icons/icons/instagram.svg');
+}
+.icon.tiktok {
+  mask-image: url('https://cdn.jsdelivr.net/npm/simple-icons/icons/tiktok.svg');
+  -webkit-mask-image: url('https://cdn.jsdelivr.net/npm/simple-icons/icons/tiktok.svg');
+}
+.icon.linkedin {
+  mask-image: url('https://cdn.jsdelivr.net/npm/simple-icons/icons/linkedin.svg');
+  -webkit-mask-image: url('https://cdn.jsdelivr.net/npm/simple-icons/icons/linkedin.svg');
+}
+
+
+/* ================================================
+   FULL PAGE RESPONSIVE TWEAKS
+================================================ */
+@media (max-width: 600px) {
+  .about-hero,
+  .about-body {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}
+
+/* ================================================
+   PAGE BACKGROUND IMAGES (About + Contact)
+   Background stays behind content, not under header/footer
+================================================ */
+main.has-bg {
+  position: relative;
+  isolation: isolate;
+}
+
+main.has-bg::before {
+  content: "";
+  position: absolute;
+  top: -80px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  background-position: center top;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* About Page Background */
+main.has-bg.bg-about::before {
+  background-image:
+    linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+    url('images/IMG_1198.png');
+}
+
+/* Contact Page Background */
+main.has-bg.bg-contact::before {
+  background-image:
+    linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+    url('images/IMG_1193.png');
+}
+
+
+/* ================================================
+   CONTACT PAGE – Layout + Commission Panel
+================================================ */
+.contact-wrapper {
+  display: flex;
+  gap: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.contact-box, .commission-box {
+  flex: 1;
+}
+
+.commission-box {
+  background: rgba(0, 0, 0, 0.35); /* Dark glass style */
+  padding: 24px;
+  border-radius: 12px;
+  border: 1px solid #444;
+  box-shadow: 0 10px 24px rgba(0,0,0,.35);
+}
+
+.commission-box h2 {
+  margin-top: 0;
+}
+
+.commission-box ul {
+  margin-left: 18px;
+  padding-left: 10px;
+}
+
+.commission-box li {
+  margin-bottom: 6px;
+  line-height: 1.6;
+}
+
+.contact-sub, .commission-sub {
+  opacity: 0.9;
+  font-size: 0.95rem;
+  margin-top: -5px;
+  margin-bottom: 15px;
+}
+
+/* Match contact form background to commission style */
+.contact-box {
+  background: rgba(0, 0, 0, 0.35); /* glass look */
+  border: 1px solid #444;
+  box-shadow: 0 10px 24px rgba(0,0,0,.35);
+}
+
+
+/* Responsive stacking on mobile */
+@media (max-width: 900px) {
+  .contact-wrapper {
+    flex-direction: column;
+  }
+}
+
+/* ================================================
+   BACK TO TOP BUTTON
+================================================ */
+#backToTop {
+  display: none;
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999;
+  background: var(--text-color);
+  color: var(--bg-color);
+  border: none;
+  border-radius: 50%;
+  padding: 12px 16px;
+  font-size: 18px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+#backToTop:hover {
+  transform: scale(1.1);
+  background: #fff;
+}

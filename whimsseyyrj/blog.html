@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Blog - Whimsy Arts</title>
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Elegant serif for blog cards -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===== BLOG PAGE SPECIFIC STYLES ===== */
+    .blog-shell {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 24px;
+    }
+
+    /* Sidebar */
+    .blog-sidebar {
+      position: sticky;
+      top: 120px;
+      align-self: start;
+      background: var(--accent-color);
+      border: 1px solid #444;
+      border-radius: 12px;
+      padding: 16px;
+    }
+    .blog-sidebar h3 {
+      margin: 0 0 12px 0;
+      font-family: "Merriweather", serif;
+      font-size: 1.2rem;
+    }
+    .cat-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 8px;
+    }
+    .cat-list button {
+      width: 100%;
+      text-align: left;
+      background: #262626;
+      border: 1px solid #3a3a3a;
+      color: var(--text-color);
+      padding: 8px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+    }
+    .cat-list button:hover {
+      box-shadow: 0 6px 18px rgba(0,0,0,.35);
+      transform: translateY(-1px);
+      background: #2e2e2e;
+    }
+    .cat-list button.active {
+      outline: 2px solid #555;
+      background: #303030;
+    }
+
+    /* Masonry container */
+    .blog-grid {
+      column-count: 3;
+      column-gap: 16px;
+      padding-top: 4px;
+    }
+    @media (max-width: 1100px) {
+      .blog-grid { column-count: 2; }
+    }
+    @media (max-width: 680px) {
+      .blog-shell { grid-template-columns: 1fr; }
+      .blog-grid { column-count: 1; }
+      .blog-sidebar { position: static; }
+    }
+
+    /* Artistic cards */
+    .blog-card {
+      display: inline-block;
+      width: 100%;
+      margin: 0 0 16px 0;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
+      border: 1px solid #3b3b3b;
+      border-radius: 16px;
+      padding: 16px 16px 14px;
+      break-inside: avoid;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.35); /* soft shadow (your choice B) */
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+      font-family: "Merriweather", serif;
+    }
+    .blog-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 36px rgba(0,0,0,0.45);
+      border-color: #515151;
+    }
+
+    .blog-meta {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      font-size: .82rem;
+      opacity: .85;
+      margin-bottom: 8px;
+    }
+    .blog-meta .badge {
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid #505050;
+      background: #252525;
+      text-transform: capitalize;
+    }
+    .blog-card h3 {
+      margin: 6px 0 8px 0;
+      font-size: 1.25rem;
+      line-height: 1.3;
+      letter-spacing: .2px;
+    }
+    .blog-card p.excerpt {
+      margin: 0 0 8px 0;
+      font-size: .98rem;
+      line-height: 1.6;
+      opacity: .95;
+    }
+    .blog-card a.read-more {
+      display: inline-block;
+      margin-top: 6px;
+      font-size: .95rem;
+      text-decoration: none;
+      color: var(--text-color);
+      border-bottom: 1px dashed #666;
+      padding-bottom: 2px;
+    }
+    .blog-card a.read-more:hover {
+      border-bottom-style: solid;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo-title">
+      <img src="images/logo_rd_1.png" alt="Logo" class="logo" />
+      <h1>Blog</h1>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="blog.html">Blog</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="blog">
+      <div class="blog-shell">
+        <aside class="blog-sidebar">
+          <h3>Categories</h3>
+          <ul class="cat-list" id="catList">
+            <!-- Buttons injected here -->
+          </ul>
+        </aside>
+
+        <div class="blog-grid" id="blogGrid">
+          <!-- Cards injected here -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer><p>&copy; 2025 Whimsy Arts</p></footer>
+
+  <script>
+    const GRID = document.getElementById('blogGrid');
+    const CATLIST = document.getElementById('catList');
+    const DATA_URL = 'blog-posts.json';
+
+    let POSTS = [];
+    let ACTIVE_CAT = 'All';
+
+    fetch(DATA_URL)
+      .then(r => {
+        if (!r.ok) throw new Error('Failed to fetch ' + DATA_URL);
+        return r.json();
+      })
+      .then(json => {
+        POSTS = json.sort((a,b) => new Date(b.date) - new Date(a.date));
+        buildCategories(POSTS);
+        renderCards(POSTS);
+      })
+      .catch(err => {
+        GRID.innerHTML = `<p style="opacity:.8">No posts yet. (Couldn’t load <code>${DATA_URL}</code>)</p>`;
+        console.error(err);
+      });
+
+    function buildCategories(posts) {
+      const set = new Set(['All']);
+      posts.forEach(p => set.add(p.category));
+      CATLIST.innerHTML = '';
+      [...set].forEach(cat => {
+        const li = document.createElement('li');
+        const btn = document.createElement('button');
+        btn.textContent = cat;
+        btn.className = (cat === ACTIVE_CAT) ? 'active' : '';
+        btn.addEventListener('click', () => {
+          ACTIVE_CAT = cat;
+          document.querySelectorAll('.cat-list button').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const filtered = (cat === 'All') ? POSTS : POSTS.filter(p => p.category === cat);
+          renderCards(filtered);
+          scrollToTopOfGrid();
+        });
+        li.appendChild(btn);
+        CATLIST.appendChild(li);
+      });
+    }
+
+    function renderCards(list) {
+      GRID.innerHTML = '';
+      list.forEach(p => {
+        const card = document.createElement('article');
+        card.className = 'blog-card';
+        card.innerHTML = `
+          <div class="blog-meta">
+            <span class="badge">${escapeHTML(p.category)}</span>
+            <time>${formatDate(p.date)}</time>
+          </div>
+          <h3>${escapeHTML(p.title)}</h3>
+          <p class="excerpt">${escapeHTML(p.excerpt || p.content.substring(0,180) + '…')}</p>
+          <a class="read-more" href="blog-post.html?slug=${encodeURIComponent(p.slug)}">Read more ?</a>
+        `;
+        GRID.appendChild(card);
+      });
+    }
+
+    function formatDate(s) {
+      // Prevent timezone shifting by manually reading yyyy-mm-dd
+      if (!s) return '';
+      const parts = s.split('T')[0].split('-'); // Extract date only
+      const year = parts[0];
+      const month = parts[1];
+      const day = parts[2];
+      const date = new Date(year, month - 1, day); // Local date, no conversion
+      return date.toLocaleDateString(undefined, {
+        year: 'numeric',
+        month: 'short',
+        day: '2-digit'
+      });
+    }
+
+    function escapeHTML(str) {
+      return (str || '').replace(/[&<>"']/g, m => ({
+        '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+      }[m]));
+    }
+    function scrollToTopOfGrid() {
+      const y = document.querySelector('.blog-shell').getBoundingClientRect().top + window.scrollY - 100;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Art Spectrum</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <div class="logo-title">
+      <img src="images/logo_artgrithm2.png" alt="Logo" class="logo" />
+      <h1>Whimsy Arts</h1>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="blog.html">Blog</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="gallery">
+      <h2>The Art Spectrum</h2>
+      <div class="filter-buttons">
+        <button onclick="filterGallery('all')">All</button>
+        <button onclick="filterGallery('digital')">Digital</button>
+        <button onclick="filterGallery('paint')">Paint</button>
+        <button onclick="filterGallery('camera')">Camera</button>
+      </div>
+
+      <div class="gallery">
+        <div class="gallery-item digital">
+          <img src="images/IMG_1190.png" alt="The Mourning Dove">
+        </div>
+        <div class="gallery-item digital">
+          <img src="images/IMG_1191.png" alt="To Be Named 1">
+        </div>
+        <div class="gallery-item digital">
+          <img src="images/IMG_1192.png" alt="What Is A Heart?">
+        </div>
+        <div class="gallery-item digital">
+          <img src="images/IMG_1193.png" alt="To Be Named 2">
+        </div>
+        <div class="gallery-item digital">
+          <img src="images/IMG_1195.png" alt="To Be Named 3">
+        </div>
+        <div class="gallery-item digital">
+          <img src="images/IMG_1196.png" alt="To Be Named 4">
+        </div>
+        <div class="gallery-item digital">
+          <img src="images/IMG_1197.png" alt="To Be Named 5">
+        </div>
+        <div class="gallery-item digital">
+          <img src="images/IMG_1199.png" alt="To Be Named 7">
+        </div>
+        <div class="gallery-item digital">
+          <img src="images/IMG_1198.png" alt="To Be Named 6">
+        </div>
+        <div class="gallery-item digital">
+          <img src="images/IMG_1200.png" alt="To Be Named 8">
+        </div>
+        <div class="gallery-item digital">
+          <img src="images/IMG_1201.png" alt="To Be Named 9">
+        </div>
+        <div class="gallery-item paint">
+          <img src="images/limbuni.jpg" alt="Limbu Traditional Custume">
+        </div>
+        <div class="gallery-item paint">
+          <img src="images/abstract_paint.jpg" alt="Abstract Painting">
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer><p>&copy; 2025 Whimsy Arts</p></footer>
+
+  <!-- ===============================
+       JAVASCRIPT SECTION
+  ==================================-->
+  <script>
+    // Filter Gallery by Category
+    function filterGallery(category) {
+      const items = document.querySelectorAll('.gallery-item');
+      items.forEach(item => {
+        item.style.display = (category === 'all' || item.classList.contains(category)) ? 'block' : 'none';
+      });
+    }
+  </script>
+</body>
+</html>

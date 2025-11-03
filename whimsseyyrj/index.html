@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RD Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow-x: hidden;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background-color: #121212;
+      color: #f0f0f0;
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      height: 100vh;
+      background: url('images/IMG_1199.png') center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      animation: fadeSlideUp 1.4s ease forwards;
+    }
+
+    .hero-content h1 {
+      font-family: 'Sour Gummy', sans-serif;
+      font-size: 4rem;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .hero-content p {
+      font-size: 1.5rem;
+      margin-bottom: 30px;
+    }
+
+    .hero-nav {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .hero-nav a {
+      background: rgba(255, 255, 255, 0.9);
+      color: #111;
+      padding: 12px 24px;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .hero-nav a:hover {
+      background: #444;
+      color: #fff;
+      transform: scale(1.05);
+    }
+
+    /* Keyframe Animation */
+    @keyframes fadeSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Scroll Section */
+    section {
+      padding: 100px 20px;
+      background-color: #1e1e1e;
+      text-align: center;
+      animation: fadeSlideUp 1.5s ease forwards;
+    }
+
+    section h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+
+    section p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .hero-content h1 {
+        font-size: 2.5rem;
+      }
+      .hero-content p {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <div class="overlay"></div>
+    <div class="hero-content">
+      <h1>Welcome!<br>Rijuta</h1>
+      <p>Designing visual experiences across art, creativity, and algorithm</p>
+      <div class="hero-nav">
+        <a href="about.html">About</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="blog.html">Blog</a>
+      </div>
+    </div>
+  </div>
+<!--
+  <section>
+    <h2>Featured Works</h2>
+    <p>Scroll-triggered transitions and effects will appear in full site version</p>
+  </section>
+-->
+</body>
+</html>
