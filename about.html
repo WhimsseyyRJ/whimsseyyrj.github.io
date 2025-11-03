@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About - Whimsy Arts</title>
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Merriweather for headings -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- ============================= -->
+  <!-- HEADER -->
+  <!-- ============================= -->
+  <header>
+    <div class="logo-title">
+      <img src="images/logo_artgrithm2.png" alt="Logo" class="logo" />
+      <h1>Whimsy Arts</h1>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <!--<a href="about.html">About</a>-->
+      <a href="gallery.html">Gallery</a>
+      <a href="blog.html">Blog</a>
+      <a href="contact.html">Contact</a> <!-- Added Contact here -->
+    </nav>
+  </header>
+
+  <!-- ============================= -->
+  <!-- MAIN CONTENT -->
+  <!-- ============================= -->
+  <main class="has-bg bg-about">
+    <section class="about-hero reveal">
+      <h2 class="about-name">Rijuta</h2>
+      <p class="about-subtitle">Digital Artist | Visual Storyteller</p>
+    </section>
+
+    <section class="about-body reveal">
+      <div class="about-content">
+        <!-- Floating Portrait -->
+        <img src="images/myphoto_1.jpg" alt="Portrait of Rijuta" class="about-portrait reveal">
+
+        <!-- About Text (loaded from about.txt) -->
+        <div id="about-text" class="about-copy">
+          <!-- about.txt will load here -->
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="about-actions">
+          <a class="btn btn-solid" href="subedi_resume.pdf" target="_blank" rel="noopener">Download Resume</a>
+          <!-- Removed Contact button -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================= -->
+  <!-- FOOTER -->
+  <!-- ============================= -->
+<footer>
+  <p>&copy; 2025 Whimsy Arts</p>
+</footer>
+
+  <!-- ============================= -->
+  <!-- SCRIPTS -->
+  <!-- ============================= -->
+  <script>
+    // Load About Text with clean paragraph formatting
+    fetch("about.txt")
+      .then(response => response.text())
+      .then(text => {
+        document.getElementById("about-text").innerHTML = text
+          .split(/\n\s*\n/)
+          .map(p => `<p>${p.trim()}</p>`)
+          .join("");
+      })
+      .catch(error => console.error("Error loading about.txt:", error));
+
+    // Reveal animation
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
