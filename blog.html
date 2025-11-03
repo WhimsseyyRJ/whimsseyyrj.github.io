@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Blog - Whimsy Arts</title>
+  <title>Blog - Whimsseyy Arts</title>
   <link rel="stylesheet" href="style.css" />
 
   <!-- Elegant serif for blog cards -->
@@ -169,7 +169,7 @@
     </section>
   </main>
 
-  <footer><p>&copy; 2025 Whimsy Arts</p></footer>
+  <footer><p>&copy; 2025 Whimsseyy Arts</p></footer>
 
   <script>
     const GRID = document.getElementById('blogGrid');
@@ -190,7 +190,7 @@
         renderCards(POSTS);
       })
       .catch(err => {
-        GRID.innerHTML = `<p style="opacity:.8">No posts yet. (Couldn’t load <code>${DATA_URL}</code>)</p>`;
+        GRID.innerHTML = `<p style="opacity:.8">No posts yet. (Couldnâ€™t load <code>${DATA_URL}</code>)</p>`;
         console.error(err);
       });
 
@@ -227,7 +227,7 @@
             <time>${formatDate(p.date)}</time>
           </div>
           <h3>${escapeHTML(p.title)}</h3>
-          <p class="excerpt">${escapeHTML(p.excerpt || p.content.substring(0,180) + '…')}</p>
+          <p class="excerpt">${escapeHTML(p.excerpt || p.content.substring(0,180) + 'â€¦')}</p>
           <a class="read-more" href="blog-post.html?slug=${encodeURIComponent(p.slug)}">Read more ?</a>
         `;
         GRID.appendChild(card);
@@ -261,3 +261,4 @@
   </script>
 </body>
 </html>
+
