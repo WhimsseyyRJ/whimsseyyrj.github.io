@@ -156,7 +156,7 @@ header nav a:hover {
   transition: opacity .6s ease, transform .6s ease;
 }
 /* ================================================
-   ABOUT PAGE — Floating Portrait Layout + Cleanup
+   ABOUT PAGE â€” Floating Portrait Layout + Cleanup
 ================================================ */
 .about-hero {
   max-width: 960px;
@@ -212,7 +212,7 @@ header nav a:hover {
 
 .about-copy p {
   margin-top: 0;
-  margin-bottom: 16px; /* adjust this number: try 8–12px */
+  margin-bottom: 16px; /* adjust this number: try 8â€“12px */
 }
 
 .about-actions {
@@ -237,7 +237,7 @@ header nav a:hover {
   }
 }
 /* ================================================
-   GALLERY — Masonry Layout + Filters
+   GALLERY â€” Masonry Layout + Filters
 ================================================ */
 .gallery {
   column-count: 3;
@@ -307,7 +307,7 @@ header nav a:hover {
   }
 }
 /* ================================================
-   BLOG PAGE — Masonry Cards
+   BLOG PAGE â€” Masonry Cards
 ================================================ */
 #blog {
   margin-top: 40px; /* spacing under header */
@@ -561,7 +561,7 @@ main.has-bg.bg-contact::before {
 
 
 /* ================================================
-   CONTACT PAGE – Layout + Commission Panel
+   CONTACT PAGE â€“ Layout + Commission Panel
 ================================================ */
 .contact-wrapper {
   display: flex;
@@ -643,3 +643,13 @@ main.has-bg.bg-contact::before {
   transform: scale(1.1);
   background: #fff;
 }
+
+/* Resume link diable */
+
+.btn.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+
